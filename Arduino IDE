@@ -1,0 +1,102 @@
+const int ENA = 3;  
+const int ENB = 2; 
+const int IN1 = 4;  
+const int IN2 = 5;  
+const int IN3 = 6;  
+const int IN4 = 7;  
+
+const int trigLeft = 10;
+const int echoLeft = 11;
+const int trigRight = 8;
+const int echoRight = 9;
+const int trigCenter = 12;
+const int echoCenter = 13;
+
+const int obstacleDistance = 10;
+
+void setup() {
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  
+  pinMode(trigLeft, OUTPUT);
+  pinMode(echoLeft, INPUT);
+  pinMode(trigRight, OUTPUT);
+  pinMode(echoRight, INPUT);
+  pinMode(trigCenter, OUTPUT);
+  pinMode(echoCenter, INPUT);
+  
+  Serial.begin(9600); 
+}
+
+void loop() {
+  int distanceLeft = getDistance(trigLeft, echoLeft);
+  int distanceRight = getDistance(trigRight, echoRight);
+  int distanceCenter = getDistance(trigCenter, echoCenter);
+
+  if (distanceCenter < obstacleDistance) {
+    moveForward();
+  } 
+  else if (distanceLeft < obstacleDistance) {
+    turnLeft();
+  } 
+  else if (distanceRight < obstacleDistance) {
+    turnRight();
+  } 
+  else {
+    stopMoving();
+  }
+  
+  delay(100); 
+}
+int getDistance(int trigPin, int echoPin) {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  long duration = pulseIn(echoPin, HIGH);
+  int distance = duration * 0.034 / 2;
+  
+  return distance;
+}
+
+void moveForward() {
+  analogWrite(ENA, 255);
+  analogWrite(ENB, 255);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnLeft() {
+  analogWrite(ENA, 150); 
+  analogWrite(ENB, 150);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW); 
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);  
+}
+
+void turnRight() {
+  analogWrite(ENA, 150);
+  analogWrite(ENB, 150);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);  
+  digitalWrite(IN3, HIGH)
+  digitalWrite(IN4, LOW); 
+}
+
+void stopMoving() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+
+код для ультразвукового робота
