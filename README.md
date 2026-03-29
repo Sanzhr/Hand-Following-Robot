@@ -1,45 +1,53 @@
-# Hand-Following-Robot
-Code in Ardunino IDE for hand following robot
-you may have another pins connected to your Arduino, you can change them.
-Obstacle Avoiding Robot using Arduino
+# Hand-Following Mobile Robot
 
-This Arduino project controls a robot that detects and avoids obstacles using three ultrasonic sensors. It uses an L298N motor driver to move forward, turn, or stop based on the distance to nearby objects.
+## Description
+This project presents a mobile robot that follows a human hand using distance measurements from ultrasonic sensors.
 
-Overview
-The robot:
-- Moves **forward** if there is an obstacle **in front**.
-- Turns **left** if there is an obstacle **on the left**.
-- Turns **right** if there is an obstacle **on the right**.
-- Stops if there are **no nearby obstacles**.
+The robot detects the relative position of a hand (left, center, right) and adjusts its movement accordingly in real time.
 
-Components Used:
+## Features
+- Real-time hand tracking using ultrasonic sensors
+- Direction-based motion control (left, right, forward)
+- Simple human-robot interaction system
+- Motor control using L298N driver
+
+## How It Works
+The robot uses three ultrasonic sensors (left, center, right) to detect the position of a hand:
+
+- If the hand is detected in front → the robot moves forward
+- If the hand is detected on the left → the robot turns left
+- If the hand is detected on the right → the robot turns right
+- If no hand is detected → the robot stops
+
+This creates a simple hand-following behavior.
+
+## Hardware Components
 - Arduino Uno
-- L298N Motor Driver Module
-- 2 DC Motors
-- 3x HC-SR04 Ultrasonic Sensors (Left, Right, Center)
-- Jumper Wires
-- Chassis + Wheels + Battery Pack
+- L298N motor driver
+- 2 DC motors
+- 3x HC-SR04 ultrasonic sensors
+- Chassis + wheels + battery
 
-Pin Configuration:
-Motor Driver
-- `ENA` - Pin 3 (PWM)
-- `ENB` - Pin 2 (PWM)
-- `IN1` - Pin 4
-- `IN2` - Pin 5
-- `IN3` - Pin 6
-- `IN4` - Pin 7
+## Pin Configuration
 
-Ultrasonic Sensors:
-- Left Sensor: `Trig` - Pin 10, `Echo` - Pin 11  
-- Right Sensor: `Trig` - Pin 8, `Echo` - Pin 9  
-- Center Sensor: `Trig` - Pin 12, `Echo` - Pin 13
+### Motor Driver
+- ENA → Pin 3
+- ENB → Pin 2
+- IN1 → Pin 4
+- IN2 → Pin 5
+- IN3 → Pin 6
+- IN4 → Pin 7
 
-Code Logic:
-if (distanceCenter < 10)
-    moveForward();
-else if (distanceLeft < 10)
-    turnLeft();
-else if (distanceRight < 10)
-    turnRight();
-else
-    stopMoving();
+### Ultrasonic Sensors
+- Left: Trig → Pin 10, Echo → Pin 11
+- Right: Trig → Pin 8, Echo → Pin 9
+- Center: Trig → Pin 12, Echo → Pin 13
+
+## Technologies Used
+- Arduino IDE
+- Embedded C/C++
+- Ultrasonic sensing
+- Real-time control logic
+
+## Project Goal
+The goal of this project was to explore basic human-robot interaction and sensor-based control for mobile robotics systems.
