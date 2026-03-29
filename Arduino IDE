@@ -99,4 +99,3 @@ void stopMoving() {
   digitalWrite(IN4, LOW);
 }
 
-код для ультразвукового робота
